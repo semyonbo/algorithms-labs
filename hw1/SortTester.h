@@ -5,8 +5,11 @@
 #include <vector>
 #include <random>
 #include <chrono>
+#include <thread>
+#include "algorithms.h"
 
 using namespace std;
+
 
 class SortTester {
 public:
@@ -22,12 +25,13 @@ public:
         return data;
     }
 
-    static void testSortingAlgorithms(vector<int> data, auto& sorter) {
-        auto tempData = data;
+    static void testSortingAlgorithms(vector<int> data,  Sorters& sorter) {
+        vector<int> tempData = data;
         auto start = chrono::high_resolution_clock::now();
         sorter.sort(tempData);
         auto end = chrono::high_resolution_clock::now();
-        cout << name << " sorted in " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms.\n";
+        auto duration = chrono::duration_cast<chrono::microseconds>(end - start);
+        cout  << sorter.getName() <<" | sorted in " << duration.count() << " ms.\n";
     }
 };
 
